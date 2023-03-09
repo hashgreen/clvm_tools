@@ -101,6 +101,16 @@ def build_symbol_dump(constants_lookup, run_program, path):
         f.write(output)
 
 
+def build_function_dump(constants_lookup, run_program, path):
+    compiled_lookup = {}
+    for k, v in constants_lookup.items():
+        cost, v1 = run_program(v, v.null())
+        compiled_lookup[bytes(k).decode()] = v1.as_bin().hex()
+    output = json.dumps(compiled_lookup)
+    with open(path, "w") as f:
+        f.write(output)
+
+
 def text_trace(disassemble, form, symbol, env, result):
     if symbol:
         env = env.rest()

@@ -1,7 +1,7 @@
 from clvm import KEYWORD_TO_ATOM
 
 from clvm_tools import binutils
-from clvm_tools.debug import build_symbol_dump
+from clvm_tools.debug import build_symbol_dump, build_function_dump
 from clvm_tools.NodePath import LEFT, RIGHT, TOP
 
 from .helpers import eval, quote
@@ -246,5 +246,6 @@ def compile_mod(args, macro_lookup, symbol_table, run_program):
 
     if has_constants_tree:
         build_symbol_dump(all_constants_lookup, run_program, "main.sym")
+        build_function_dump(all_constants_lookup, run_program, "main.sym.clvm.hex")
 
     return binutils.assemble(main_code)
